@@ -4,7 +4,6 @@ const API_URL = "http://localhost:3001/api";
 
 let filterTerm = "";
 
-// Словник для відображення назв у таблиці
 const categoryNames = {
     1: "Спец. мат. методи",
     2: "Архітектура КС",
@@ -74,11 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (response.ok) {
                     const statusDiv = document.getElementById("user-status");
-                    // Повідомлення тепер постійне і красиве
+                 
                     statusDiv.innerHTML = `<div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #c3e6cb;">
                         ✅ Вітаємо, ${userData.name}! Реєстрація успішна. Тепер ви можете додавати нотатки нижче.
                     </div>`;
-                    userForm.style.display = "none"; // Ховаємо форму, щоб звільнити місце
+                    userForm.style.display = "none";
                 } else {
                     document.getElementById("user-status").innerText = "Помилка реєстрації";
                 }
@@ -90,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Слухач для кнопок Редагувати/Видалити в таблиці
 tbody.addEventListener("click", (e) => {
     const id = Number(e.target.dataset.id);
     if (e.target.classList.contains("delete-btn")) deleteItem(id);
@@ -114,7 +112,6 @@ async function handleFormSubmit(e) {
     const idField = document.getElementById("edit-id");
     const id = idField ? idField.value : null;
 
-    // ВИПРАВЛЕНО: categoryId тепер береться динамічно зі списку
     const dto = {
         userId: 1, 
         categoryId: Number(document.getElementById("courseSelect").value), 
@@ -164,7 +161,6 @@ function startEdit(id) {
     const idField = document.getElementById("edit-id");
     if (idField) idField.value = item.id;
     
-    // Встановлюємо значення у списку за ID категорії
     document.getElementById("courseSelect").value = item.categoryId || "";
     document.getElementById("titleInput").value = item.title;
     document.getElementById("noteText").value = item.content || "";
